@@ -37,3 +37,13 @@ module "nat-gateway" {
   private_app_subnet_az2_id  = module.vpc.private_app_subnet_az2_id
   private_data_subnet_az2_id = module.vpc.private_data_subnet_az2_id
 }
+
+# create security-group module
+module "security-groups" {
+  source = "git@github.com:RockiestSpy7/terraform-modules.git//security-groups"
+  # security-group variables
+  project_name = local.project_name
+  environment  = local.environment
+  vpc_id       = module.vpc.vpc_id
+  ssh_id       = var.ssh_id
+}
