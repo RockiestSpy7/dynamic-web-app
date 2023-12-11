@@ -47,3 +47,19 @@ module "security-groups" {
   vpc_id       = module.vpc.vpc_id
   ssh_id       = var.ssh_id
 }
+
+# create rds module
+module "rds" {
+  source = "git@github.com:RockiestSpy7/terraform-modules.git//rds"
+  # rds variables
+  project_name                 = local.project_name
+  environment                  = local.environment
+  private_data_subnet_az1_id   = module.vpc.private_data_subnet_az1_id
+  private_data_subnet_az2_id   = module.vpc.private_data_subnet_az2_id
+  database_snapshot_identifier = var.database_snapshot_identifier
+  database_instance_class      = var.database_instance_class
+  availability_zone_1          = module.vpc.availability_zone_1
+  database_instance_identifier = var.database_instance_identifier
+  multi_az_deployment          = var.multi_az_deployment
+  database_security_group_id   = module.security-groups.database_security_group_id
+}
