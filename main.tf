@@ -63,3 +63,11 @@ module "rds" {
   multi_az_deployment          = var.multi_az_deployment
   database_security_group_id   = module.security-groups.database_security_group_id
 }
+
+# request ssl certificate
+module "ssl_certificate" {
+  source = "git@github.com:RockiestSpy7/terraform-modules.git//acm"
+  # acm variables
+  domain_name       = var.domain_name
+  alternative_names = var.alternative_names
+}
