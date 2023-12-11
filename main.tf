@@ -121,3 +121,12 @@ module "ecs" {
   app_server_security_group_id = module.security-groups.app_server_security_group_id
   alb_target_group_arn         = module.application_load_balancer.alb_target_group_arn
 }
+
+# create asg module
+module "asg_ecs" {
+  source = "git@github.com:RockiestSpy7/terraform-modules.git//asg-ecs"
+  # asg variables
+  project_name = local.project_name
+  environment  = local.environment
+  ecs_service  = module.ecs.ecs_service
+}
